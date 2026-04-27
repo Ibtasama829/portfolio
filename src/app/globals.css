@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   CSS VARIABLES / DESIGN TOKENS
+   ============================================ */
+:root,
+[data-theme="dark"] {
+  --bg: #040404;
+  --bg-card: #0d0d0d;
+  --bg-card-hover: #141414;
+  --border: rgba(255,255,255,0.06);
+  --border-accent: rgba(196,163,90,0.3);
+  --accent: #c4a35a;
+  --accent-light: #d4b86a;
+  --text: #f0f0f0;
+  --text-dim: #999;
+  --text-muted: #555;
+  --font-head: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --ease-expo: cubic-bezier(0.16,1,0.3,1);
+  --ease-circ: cubic-bezier(0.85,0,0.15,1);
+  --modal-bg: rgba(4,4,4,0.96);
+  --scrollbar-track: #040404;
+  --scrollbar-thumb: #222;
+  --selection-bg: rgba(196,163,90,0.25);
+}
+
+[data-theme="light"] {
+  --bg: #f5f3ef;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf8f5;
+  --border: rgba(0,0,0,0.08);
+  --border-accent: rgba(180,145,60,0.3);
+  --accent: #9e7e30;
+  --accent-light: #b89040;
+  --text: #111;
+  --text-dim: #555;
+  --text-muted: #999;
+  --modal-bg: rgba(245,243,239,0.96);
+  --scrollbar-track: #f5f3ef;
+  --scrollbar-thumb: #ccc;
+  --selection-bg: rgba(158,126,48,0.2);
+}
+
+/* ============================================
+   RESET
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Desktop: hide cursor */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  * { cursor: none !important; }
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+::selection { background: var(--selection-bg); color: var(--text); }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.text-hero { font-family: var(--font-head); font-size: clamp(2.8rem, 7vw, 8rem); font-weight: 700; line-height: 0.92; letter-spacing: -0.04em; }
+.text-display { font-family: var(--font-head); font-size: clamp(2rem, 4.5vw, 4.5rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
+.text-title { font-family: var(--font-head); font-size: clamp(1.4rem, 2.5vw, 2.5rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+
+/* ============================================
+   CUSTOM CURSOR (desktop only)
+   ============================================ */
+.cursor-dot { position: fixed; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); }
+.cursor-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid rgba(196,163,90,0.45); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); transition: width 0.3s var(--ease-expo), height 0.3s var(--ease-expo); }
+@media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none !important; } }
+
+/* ============================================
+   NAV
+   ============================================ */
+.nav-link { position: relative; font-family: var(--font-body); font-size: 0.8rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.05em; transition: color 0.3s ease; }
+.nav-link::after { content:''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.4s var(--ease-expo); }
+.nav-link:hover { color: var(--text); }
+.nav-link:hover::after { width: 100%; }
+
+/* ============================================
+   SECTION BADGE
+   ============================================ */
+.section-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.25rem; }
+.section-badge span { color: var(--accent); font-family: 'Space Grotesk', monospace; font-size: 0.75rem; }
+.section-badge::after { content:''; display: block; width: 2.5rem; height: 1px; background: var(--border-accent); }
+
+/* ============================================
+   GRAIN
+   ============================================ */
+.grain { position: fixed; inset: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9990; animation: grain-shift 8s steps(10) infinite; }
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0,0); } 10% { transform: translate(-2%,-3%); } 20% { transform: translate(3%,2%); } 30% { transform: translate(-1%,4%); } 40% { transform: translate(4%,-1%); } 50% { transform: translate(-3%,1%); } 60% { transform: translate(2%,3%); } 70% { transform: translate(-4%,-2%); } 80% { transform: translate(3%,-4%); } 90% { transform: translate(1%,2%); }
+}
+[data-theme="light"] .grain { opacity: 0.3; }
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; overflow: hidden; transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s var(--ease-expo), box-shadow 0.4s ease; }
+.card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
+[data-theme="light"] .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+
+/* ============================================
+   PILL / TAGS
+   ============================================ */
+.pill { display: inline-flex; align-items: center; padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 999px; font-family: var(--font-body); font-size: 0.75rem; color: var(--text-dim); background: transparent; transition: all 0.3s ease; }
+.pill:hover { border-color: var(--border-accent); color: var(--accent); background: rgba(196,163,90,0.05); }
+
+/* ============================================
+   FORM INPUTS
+   ============================================ */
+.field { display: block; width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border); padding: 1rem 0; font-family: var(--font-body); font-size: 1rem; color: var(--text); outline: none; transition: border-color 0.3s ease; }
+.field:focus { border-bottom-color: var(--accent); }
+.field::placeholder { color: var(--text-muted); }
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2.2rem; background: var(--accent); color: #000; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 999px; text-decoration: none; border: none; transition: background 0.3s ease, transform 0.3s var(--ease-expo); }
+.btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+.btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2.2rem; background: transparent; color: var(--accent); font-family: var(--font-head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 999px; border: 1px solid var(--border-accent); text-decoration: none; transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-expo); }
+.btn-outline:hover { background: rgba(196,163,90,0.1); border-color: var(--accent); transform: translateY(-2px); }
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.timeline-line { position: absolute; left: 1.25rem; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), rgba(196,163,90,0.05)); transform-origin: top; }
+
+/* ============================================
+   MODAL OVERLAY
+   ============================================ */
+.modal-backdrop { position: fixed; inset: 0; z-index: 200; background: var(--modal-bg); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+
+/* ============================================
+   GLOW DECORATORS
+   ============================================ */
+.glow-blob { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; }
+[data-theme="light"] .glow-blob { opacity: 0.5; }
+
+/* ============================================
+   PRELOADER
+   ============================================ */
+.preloader { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+.preloader-bar { width: 14rem; height: 1px; background: var(--border); border-radius: 1px; overflow: hidden; }
+.preloader-fill { height: 100%; background: var(--accent); border-radius: 1px; transition: width 0.1s linear; }
+
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+.theme-toggle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: transparent; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; color: var(--text-dim); }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: rgba(196,163,90,0.08); }
+
+/* ============================================
+   SKILL CARD
+   ============================================ */
+.skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.skill-card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+.skill-card:hover::before { opacity: 1; }
+[data-theme="light"] .skill-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s ease;
+}
+.skill-item:last-child { border-bottom: none; }
+.skill-item:hover { color: var(--accent); }
+.skill-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.skill-item:hover .skill-dot { opacity: 1; }
+
+/* ============================================
+   RESPONSIVE CONTAINER UTILITY
+   ============================================ */
+.container-main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+@media (max-width: 768px) {
+  .container-main { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
