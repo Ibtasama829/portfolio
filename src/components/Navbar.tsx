@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/ThemeProvider";
+import { asset } from "@/lib/basepath";
 
 const links = [
   { label: "About", href: "#about" },
@@ -60,7 +61,7 @@ export default function Navbar() {
           <button onClick={toggle} className="theme-toggle" data-hover aria-label="Toggle theme">
             {theme === "dark" ? sunIcon : moonIcon}
           </button>
-          <a href="/resume/Ibtasam_Ali_Resume.pdf" target="_blank" rel="noopener noreferrer"
+          <a href={asset("/resume/Ibtasam_Ali_Resume.pdf")} target="_blank" rel="noopener noreferrer"
             className="btn-outline" data-hover style={{ padding: "0.5rem 1.2rem", fontSize: "0.7rem" }}>
             Résumé
           </a>
@@ -92,7 +93,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="/resume/Ibtasam_Ali_Resume.pdf" target="_blank" className="btn-outline" data-hover>Résumé</a>
+          <a href={asset("/resume/Ibtasam_Ali_Resume.pdf")} target="_blank" className="btn-outline" data-hover>Résumé</a>
         </div>
       )}
 

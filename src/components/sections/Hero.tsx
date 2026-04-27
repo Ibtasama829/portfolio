@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { asset } from "@/lib/basepath";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -70,7 +71,7 @@ export default function Hero() {
             <div style={{ position: "absolute", inset: "-16px", borderRadius: "2rem", border: "1px solid rgba(196,163,90,0.1)" }} className="hero-ring-1" />
             <div style={{ position: "absolute", inset: "-36px", borderRadius: "2.5rem", border: "1px solid rgba(196,163,90,0.04)" }} className="hero-ring-2" />
             <div style={{ position: "relative", width: "min(380px, 100%)", aspectRatio: "3/4", borderRadius: "1.5rem", overflow: "hidden", border: "1px solid rgba(196,163,90,0.15)" }}>
-              <Image src="/images/profile.jpg" alt="Ibtasam Ali" fill style={{ objectFit: "cover", objectPosition: "top center" }} sizes="(max-width: 768px) 85vw, 380px" priority />
+              <Image src={asset("/images/profile.jpg")} alt="Ibtasam Ali" fill style={{ objectFit: "cover", objectPosition: "top center" }} sizes="(max-width: 768px) 85vw, 380px" priority />
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "45%", background: "linear-gradient(to top, color-mix(in srgb, var(--bg) 80%, transparent) 0%, transparent 100%)" }} />
               <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", right: "1.25rem" }}>
                 <div style={{ fontFamily: "var(--font-head)", fontWeight: 700, fontSize: "1.3rem", color: "var(--text)", marginBottom: "0.15rem" }}>Ibtasam Ali</div>

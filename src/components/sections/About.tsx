@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { asset } from "@/lib/basepath";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -81,7 +82,7 @@ export default function About() {
                 onClick={e => { e.preventDefault(); document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }); }}>
                 See My Work
               </a>
-              <a href="/resume/Ibtasam_Ali_Resume.pdf" target="_blank" className="btn-outline" data-hover>
+              <a href={asset("/resume/Ibtasam_Ali_Resume.pdf")} target="_blank" className="btn-outline" data-hover>
                 Download CV
               </a>
             </div>
