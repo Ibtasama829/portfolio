@@ -41,7 +41,7 @@ export default function Projects() {
             {PROJECTS.map((p, i) => (
               <div key={p.id} className="proj-card card" style={{ opacity: 0, position: "relative" }} onClick={() => setSelected(p)} data-hover>
                 <div style={{ position: "relative", aspectRatio: "16/10", overflow: "hidden" }}>
-                  <Image src={p.image} alt={p.title} fill style={{ objectFit: "cover", transition: "transform 0.6s ease" }} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" className="proj-img" />
+                  <Image src={asset(p.image)} alt={p.title} fill style={{ objectFit: "cover", transition: "transform 0.6s ease" }} sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" className="proj-img" />
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, color-mix(in srgb, var(--bg-card) 90%, transparent) 0%, color-mix(in srgb, var(--bg-card) 30%, transparent) 40%, transparent 100%)" }} />
                   <div style={{ position: "absolute", top: "0.75rem", left: "1rem", fontFamily: "monospace", fontSize: "0.75rem", color: "var(--accent)" }}>0{i+1}</div>
                   <div style={{ position: "absolute", top: "0.75rem", right: "1rem", padding: "0.25rem 0.75rem", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(8px)", borderRadius: "999px", border: "1px solid var(--border)", fontFamily: "var(--font-body)", fontSize: "0.65rem", color: "var(--text-dim)" }}>{p.category}</div>
@@ -64,7 +64,7 @@ export default function Projects() {
           <div onClick={e => e.stopPropagation()} style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "1.5rem", maxWidth: "800px", width: "100%", maxHeight: "90vh", overflowY: "auto", position: "relative" }}>
             <button onClick={() => setSelected(null)} data-hover style={{ position: "sticky", top: "1rem", float: "right", margin: "1rem 1rem 0 0", width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.06)", border: "1px solid var(--border)", color: "var(--text)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10 }}>✕</button>
             <div style={{ position: "relative", aspectRatio: "16/9" }}>
-              <Image src={selected.image} alt={selected.title} fill style={{ objectFit: "cover" }} sizes="800px" />
+              <Image src={asset(selected.image)} alt={selected.title} fill style={{ objectFit: "cover" }} sizes="800px" />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, var(--bg-card) 0%, transparent 60%)" }} />
             </div>
             <div style={{ padding: "2rem" }}>
