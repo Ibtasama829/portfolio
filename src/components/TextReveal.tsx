@@ -28,9 +28,10 @@ export default function TextReveal({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const element = containerRef.current;
+    if (!element) return;
 
-    const spans = containerRef.current.querySelectorAll(".reveal-unit");
+    const spans = element.querySelectorAll(".reveal-unit");
 
     const animation = gsap.fromTo(
       spans,
@@ -45,7 +46,7 @@ export default function TextReveal({
         ...(triggerOnScroll
           ? {
               scrollTrigger: {
-                trigger: containerRef.current,
+                trigger: element,
                 start: "top 85%",
                 toggleActions: "play none none none",
               },
@@ -57,7 +58,7 @@ export default function TextReveal({
     return () => {
       animation.kill();
       ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === containerRef.current) st.kill();
+        if (st.trigger === element) st.kill();
       });
     };
   }, [delay, stagger, triggerOnScroll]);

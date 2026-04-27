@@ -46,7 +46,7 @@ export default function Experience() {
           <div className="timeline-line" style={{ transform: "scaleY(0)" }} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            {EXPERIENCE.map((item, i) => (
+            {EXPERIENCE.map((item) => (
               <div key={item.id} className="exp-entry" style={{ opacity: 0, position: "relative" }}>
                 <div style={{ position: "absolute", left: "-2.2rem", top: "1.15rem", width: "12px", height: "12px", borderRadius: "50%", border: "2px solid var(--accent)", background: "var(--bg)", zIndex: 2 }} />
 

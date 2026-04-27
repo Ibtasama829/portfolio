@@ -63,7 +63,7 @@ export default function Skills() {
           gridTemplateColumns: "repeat(3, 1fr)",
           gap: "1.5rem",
         }}>
-          {categories.map((cat, ci) => (
+          {categories.map((cat) => (
             <div key={cat.title} className="skill-card-anim skill-card" style={{ opacity: 0 }}>
               {/* Card header */}
               <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", paddingBottom: "1rem", borderBottom: "1px solid var(--border)" }}>
